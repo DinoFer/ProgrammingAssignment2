@@ -1,15 +1,40 @@
-## Put comments here that give an overall description of what your
-## functions do
+## These functions take a matrix and splits into x and y performing function on each. The
+## function will take inverse of matrix and store it in a list.
+## second functions will display it if its not null. 
 
-## Write a short comment describing this function
+## First function designates the cachematrix function as a matrix
+## with x and y and no loops. Get will give the values for the
+## inverse. set, get, list will make the matrix inverse, get the value
+## and list it.
+
 
 makeCacheMatrix <- function(x = matrix()) {
-
+        i <- NULL
+        ## nested function
+        set <- function(y) {
+                x <<- y
+                i <<- NULL
+        }
+get <- function() x
+setinverse <- function(inverse) i <<- inverse
+getinverse <- function() i
+list(set = set,
+     get = get,
+     setinverse = setinverse,
+     getinverse = getinverse)
 }
 
-
-## Write a short comment describing this function
+## Function to bring up cached data if not null. Then data will bring up the matrix, i will solve the matrix by inverting (solve function 
+##inverts the matrix).  
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+        i <- x$getinverse()
+        if (!is.null(i)){
+                message("getting cached data")
+                return(i)
+        }
+data <- x$get()
+i <- solve(data, ...)
+x$setinverse(i)
+i
 }
